@@ -1,6 +1,6 @@
 package com.telegram.film_bot.configuration;
 
-import com.telegram.film_bot.botapi.FilmTelegramBot;
+import com.telegram.film_bot.FilmTelegramBot;
 import com.telegram.film_bot.botapi.TelegramFacade;
 import com.telegram.film_bot.configuration.properties.BotProperties;
 import org.springframework.context.annotation.Bean;

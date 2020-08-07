@@ -1,6 +1,6 @@
 package com.telegram.film_bot.controller;
 
-import com.telegram.film_bot.botapi.FilmTelegramBot;
+import com.telegram.film_bot.FilmTelegramBot;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;

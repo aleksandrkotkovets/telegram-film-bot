@@ -8,7 +8,6 @@ import org.telegram.telegrambots.ApiContextInitializer;
 public class FilmBotApplication {
 
     public static void main(String[] args) {
-        ApiContextInitializer.init();
         SpringApplication.run(FilmBotApplication.class, args);
     }
 

@@ -1,7 +1,7 @@
 server:
   port: 5000
 
-localeTag: "ru-RU"
+localeTag: ru
 
 logging:
   pattern:
@@ -14,8 +14,8 @@ logging:
 telegram-bot:
   botUserName: "@alekot_bot"
   botToken: 1370699371:AAFtToynML4gadnM7zfqjmn6DKQGOeSnaXc
-#  webHookPath: https://bb8a8d3cc261.ngrok.io
-  webHookPath: https://telegram-film-bot.herokuapp.com
-  proxyType: SOCKS5
-  proxyHost: localhost
-  proxyPort: 9150
+#ngrok
+  webHookPath: https://26695ec6feff.ngrok.io
+#  Heroku
+#  webHookPath: https://telegram-film-bot.herokuapp.com/
+

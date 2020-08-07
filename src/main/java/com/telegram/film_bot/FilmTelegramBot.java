@@ -1,5 +1,6 @@
-package com.telegram.film_bot.botapi;
+package com.telegram.film_bot;
 
+import com.telegram.film_bot.botapi.TelegramFacade;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
@@ -26,9 +27,7 @@ public class FilmTelegramBot extends TelegramWebhookBot {
 
     @Override
     public BotApiMethod<?> onWebhookUpdateReceived(Update update) {
-        SendMessage replyMessageToUser = telegramFacade.handleUpdate(update);
-        return replyMessageToUser;
+        return telegramFacade.handleUpdate(update);
     }
-
 
 }
