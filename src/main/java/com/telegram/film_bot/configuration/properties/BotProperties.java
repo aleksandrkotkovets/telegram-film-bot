@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@ConfigurationProperties(prefix = "telegram-bot")
+@ConfigurationProperties(prefix = "telegram.bot")
 public class BotProperties {
 
     String webHookPath;

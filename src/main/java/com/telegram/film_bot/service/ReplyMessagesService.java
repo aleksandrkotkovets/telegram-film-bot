@@ -1,6 +1,7 @@
 package com.telegram.film_bot.service;
 
 import org.springframework.stereotype.Service;
+import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
 @Service
@@ -24,4 +25,7 @@ public class ReplyMessagesService {
         return localeMessageService.getMessage(replyText);
     }
 
+    public BotApiMethod<?> getWarningReplyMessage(long chatId, String replyMessage) {
+        return new SendMessage(chatId, localeMessageService.getMessage(replyMessage));
+    }
 }

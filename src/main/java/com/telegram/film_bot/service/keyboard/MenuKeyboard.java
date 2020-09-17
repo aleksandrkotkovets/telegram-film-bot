@@ -1,9 +1,7 @@
 package com.telegram.film_bot.service.keyboard;
 
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 
@@ -43,34 +41,4 @@ public class MenuKeyboard {
         return replyKeyboardMarkup;
     }
 
-    public InlineKeyboardMarkup getFindMenuInlineKeyboard() {
-
-        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
-
-        InlineKeyboardButton findByType = new InlineKeyboardButton().setText("Жанр").setCallbackData("CallType");
-        InlineKeyboardButton findByYear = new InlineKeyboardButton().setText("Год").setCallbackData("CallYear");
-        InlineKeyboardButton findByName = new InlineKeyboardButton().setText("Название").setCallbackData("CallName");
-        InlineKeyboardButton findByRate = new InlineKeyboardButton().setText("Рейтинг").setCallbackData("CallRate");
-        InlineKeyboardButton findByPicture = new InlineKeyboardButton().setText("Картинка").setCallbackData("CallPicture");
-        InlineKeyboardButton findByAllParams = new InlineKeyboardButton().setText("Объеденить поиск").setCallbackData("CallAllSearchTypes");
-
-        List<InlineKeyboardButton> keyboardButtonsRow1 = new ArrayList<>();
-        keyboardButtonsRow1.add(findByName);
-        keyboardButtonsRow1.add(findByYear);
-        List<InlineKeyboardButton> keyboardButtonsRow2 = new ArrayList<>();
-        keyboardButtonsRow2.add(findByType);
-        keyboardButtonsRow2.add(findByRate);
-        List<InlineKeyboardButton> keyboardButtonsRow3 = new ArrayList<>();
-        keyboardButtonsRow3.add(findByPicture);
-        List<InlineKeyboardButton> keyboardButtonsRow4 = new ArrayList<>();
-        keyboardButtonsRow4.add(findByAllParams);
-
-        List<List<InlineKeyboardButton>> rowList = new ArrayList<>();
-        rowList.add(keyboardButtonsRow1);
-        rowList.add(keyboardButtonsRow2);
-        rowList.add(keyboardButtonsRow3);
-        rowList.add(keyboardButtonsRow4);
-
-        return inlineKeyboardMarkup.setKeyboard(rowList);
-    }
 }

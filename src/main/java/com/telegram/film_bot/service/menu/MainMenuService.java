@@ -16,8 +16,7 @@ public class MainMenuService extends AbstractMenuService {
 
     public SendMessage getMainMenuMessage(final long chatId, final String textMessage) {
         final ReplyKeyboardMarkup replyKeyboardMarkup = menuKeyboard.getMainMenuKeyboard();
-        final SendMessage mainMenuMessage = createMessageWithKeyboard(chatId, textMessage, replyKeyboardMarkup);
-        return mainMenuMessage;
+        return createMessageWithKeyboard(chatId, textMessage, replyKeyboardMarkup);
     }
 
 }

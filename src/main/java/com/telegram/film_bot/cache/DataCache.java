@@ -1,10 +1,10 @@
 package com.telegram.film_bot.cache;
 
-import com.telegram.film_bot.botapi.state.BotState;
+import com.telegram.film_bot.botapi.handler.BotState;
 
 
 public interface DataCache {
-    void setUsersCurrentBotState(int userId, BotState botState);
+    void setUsersCurrentBotState(Integer userId, BotState botState);
 
-    BotState getUsersCurrentBotState(int userId);
+    BotState getUsersCurrentBotState(Integer userId);
 }

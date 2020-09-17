@@ -11,11 +11,33 @@ logging:
       springframework:
         web: info
 
-telegram-bot:
-  botUserName: "@alekot_bot"
-  botToken: 1370699371:AAFtToynML4gadnM7zfqjmn6DKQGOeSnaXc
-#ngrok
-  webHookPath: https://26695ec6feff.ngrok.io
+
+telegram:
+  org-bot: https://api.telegram.org/bot
+  bot:
+    botUserName: "@alekot_bot"
+    botToken: 1370699371:AAFtToynML4gadnM7zfqjmn6DKQGOeSnaXc
+    #ngrok
+    webHookPath: https://d3fa796cb6a0.ngrok.io
+  channel:
+    id: 1001300578419
 #  Heroku
 #  webHookPath: https://telegram-film-bot.herokuapp.com/
 
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://songs_from_dumpster:songs_from_dumpster@aleksandrkotkovets.8mamm.mongodb.net/film_from_telegram_channel?retryWrites=true&w=majority
+
+regex:
+  message:
+    get:
+      genre: "Жанр:\\s*(.*?)\\nРейтинг:"
+      rate: "Рейтинг:\\s*(\\d+)"
+      year: "Год:\\s*(\\d+)\\nЖанр:"
+
+keyboard:
+  split-size: 3
+
+film:
+  top: 5
