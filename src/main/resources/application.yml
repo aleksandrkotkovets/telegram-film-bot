@@ -18,11 +18,11 @@ telegram:
     botUserName: "@alekot_bot"
     botToken: 1370699371:AAFtToynML4gadnM7zfqjmn6DKQGOeSnaXc
     #ngrok
-    webHookPath: https://d3fa796cb6a0.ngrok.io
+#    webHookPath: https://d3fa796cb6a0.ngrok.io
   channel:
     id: 1001300578419
 #  Heroku
-#  webHookPath: https://telegram-film-bot.herokuapp.com/
+  webHookPath: https://telegram-film-bot.herokuapp.com/
 
 spring:
   data:
