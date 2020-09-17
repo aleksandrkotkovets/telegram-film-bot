@@ -30,6 +30,4 @@ public class Film {
     @Field(name = "message_text")
     String messageText;
 
-    @Field(name = "photo_id")
-    Long photoId;
 }
