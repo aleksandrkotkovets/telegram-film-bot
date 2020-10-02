@@ -41,3 +41,11 @@ keyboard:
 
 film:
   top: 5
+
+user:
+  admin:
+    id: 487721735
+
+ping-task:
+  url: https://www.google.com
+  period: 1200000

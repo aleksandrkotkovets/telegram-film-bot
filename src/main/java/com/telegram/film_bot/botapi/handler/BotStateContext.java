@@ -31,7 +31,22 @@ public class BotStateContext {
             return messageHandlers.get(BotState.SHOW_RANDOM_FILM);
         }
 
+        if (isRecommendFilmState(currentState)) {
+            return messageHandlers.get(BotState.RECOMMEND_FILM);
+        }
+
         return messageHandlers.get(currentState);
+    }
+
+    private boolean isRecommendFilmState(BotState currentState) {
+        switch (currentState) {
+            case RECOMMEND_FILM:
+            case ASK_RECOMMEND_FILM:
+            case ADD_RECOMMEND_FILM:
+                return true;
+            default:
+                return false;
+        }
     }
 
     private boolean isFilmSearchState(BotState currentState) {

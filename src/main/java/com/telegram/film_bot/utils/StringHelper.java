@@ -83,5 +83,13 @@ public class StringHelper {
         return list.stream().sorted(Comparator.comparingInt(Integer::parseInt)).collect(Collectors.toList());
     }
 
+    public static String createMessage(List<String> stringList) {
+        StringBuilder message = new StringBuilder();
+        for (int i = 0; i < stringList.size(); i++) {
+            String count = String.valueOf(i + 1);
+            message.append(count).append(". ").append(stringList.get(i)).append("\n");
+        }
+        return String.valueOf(message);
+    }
 }
 

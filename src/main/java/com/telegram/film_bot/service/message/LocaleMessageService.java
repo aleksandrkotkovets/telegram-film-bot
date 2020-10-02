@@ -1,4 +1,4 @@
-package com.telegram.film_bot.service;
+package com.telegram.film_bot.service.message;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;

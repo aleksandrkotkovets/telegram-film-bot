@@ -1,24 +1,39 @@
 package com.telegram.film_bot.service.impl;
 
-import com.telegram.film_bot.data.entities.Film;
-import com.telegram.film_bot.service.ReplyMessagesService;
-import com.telegram.film_bot.utils.TelegramClient;
+import com.telegram.film_bot.FilmTelegramBot;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
-import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.ForwardMessage;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class ForwardMessageService implements IForwardMessageService {
 
+    @Value("${telegram.channel.id}")
+    private String channelId;
+
+    private final FilmTelegramBot filmTelegramBot;
+
+    public ForwardMessageService(@Lazy FilmTelegramBot filmTelegramBot) {
+        this.filmTelegramBot = filmTelegramBot;
+    }
+
     @Override
-    public BotApiMethod<?> getForwardMessageList(long chatId, List<Film> films, String channelId, TelegramClient telegramClient, ReplyMessagesService messagesService) {
-        BotApiMethod<?> replyToUser;
-        List<ForwardMessage> forwardMessageList = films.stream().map(film -> new ForwardMessage(chatId, channelId, Math.toIntExact(film.getMessageId()))).collect(Collectors.toList());
-        forwardMessageList.forEach(film -> telegramClient.forwardFromChannelToUser(chatId, channelId, film.getMessageId()));
-        replyToUser = messagesService.getReplyMessage(chatId, "reply.filmSearch.findedFilms", forwardMessageList.size());
-        return replyToUser;
+    public List<ForwardMessage> getForwardMessageList(long chatId, List<Integer> messageIdList) {
+        return messageIdList.stream().map(messageId -> new ForwardMessage(chatId, channelId, messageId)).collect(Collectors.toList());
+    }
+
+    /**
+     * Telegram methods
+     */
+
+    @Override
+    public void forwardMessage(List<ForwardMessage> forwardMessageList) {
+        filmTelegramBot.forwardMessage(forwardMessageList);
     }
 }

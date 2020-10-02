@@ -6,11 +6,12 @@ import com.telegram.film_bot.botapi.handler.callbackquery.CallbackQueryHandler;
 import com.telegram.film_bot.botapi.handler.callbackquery.CallbackQueryType;
 import com.telegram.film_bot.cache.UserDataCache;
 import com.telegram.film_bot.data.entities.Film;
-import com.telegram.film_bot.service.ReplyMessagesService;
+import com.telegram.film_bot.service.message.ReplyMessagesService;
 import com.telegram.film_bot.service.film.impl.FilmService;
 import com.telegram.film_bot.service.find.FindFilmMessageService;
 import com.telegram.film_bot.service.impl.IChatService;
 import com.telegram.film_bot.service.impl.IUserService;
+import com.telegram.film_bot.utils.Emoji;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
@@ -54,7 +55,7 @@ public class NoCallQueryHandler implements CallbackQueryHandler {
         Integer userId = userService.getUserId(callbackQuery);
         Long chatId = chatService.getChatId(callbackQuery);
         BotState usersCurrentBotState = userDataCache.getUsersCurrentBotState(userId);
-        BotApiMethod<?> replyToUser = messagesService.getWarningReplyMessage(chatId, "reply.query.failed");
+        BotApiMethod<?> replyToUser = messagesService.getWarningReplyMessage(chatId, "reply.query.failed", Emoji.INFORMATION_SOURCE);
 
         switch (usersCurrentBotState) {
             case RANDOM_FILM_ASK: {
