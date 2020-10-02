@@ -1,20 +1,21 @@
-package com.telegram.film_bot.botapi.handler.find;
+package com.telegram.film_bot.botapi.handler.main;
 
 import com.telegram.film_bot.botapi.handler.BotState;
 import com.telegram.film_bot.botapi.handler.InputMessageHandler;
 import com.telegram.film_bot.cache.UserDataCache;
-import com.telegram.film_bot.service.ReplyMessagesService;
 import com.telegram.film_bot.service.find.FindFilmMessageService;
 import com.telegram.film_bot.service.impl.IChatService;
 import com.telegram.film_bot.service.impl.IUserService;
 import com.telegram.film_bot.service.keyboard.Keyboard;
+import com.telegram.film_bot.service.message.ReplyMessagesService;
+import com.telegram.film_bot.utils.Emoji;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
 @Component
-public class RandomFilmHandler implements InputMessageHandler {
+public class RandomFilmHandler  implements InputMessageHandler {
 
     private final FindFilmMessageService findFilmMessageService;
     private final UserDataCache userDataCache;
@@ -53,7 +54,7 @@ public class RandomFilmHandler implements InputMessageHandler {
         int userId = userService.getUserId(inputMsg);
         long chatId = chatService.getChatId(inputMsg);
 
-        BotApiMethod<?> replyToUser = messagesService.getWarningReplyMessage(chatId, "reply.filmSearch.tryAgain");
+        BotApiMethod<?> replyToUser = messagesService.getWarningReplyMessage(chatId, "reply.filmSearch.tryAgain", Emoji.INFORMATION_SOURCE, Emoji.INFORMATION_SOURCE);
 
         BotState botState = userDataCache.getUsersCurrentBotState(userId);
 

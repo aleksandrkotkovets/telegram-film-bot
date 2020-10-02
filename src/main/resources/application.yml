@@ -18,7 +18,7 @@ telegram:
     botUserName: "@alekot_bot"
     botToken: 1370699371:AAFtToynML4gadnM7zfqjmn6DKQGOeSnaXc
     #ngrok
-    webHookPath: https://d3fa796cb6a0.ngrok.io
+    webHookPath: https://3a5e60129a0e.ngrok.io
   channel:
     id: 1001300578419
 #  Heroku
@@ -41,3 +41,11 @@ keyboard:
 
 film:
   top: 5
+
+user:
+  admin:
+    id: 487721735
+
+ping-task:
+  url: https://www.google.com
+  period: 1200000

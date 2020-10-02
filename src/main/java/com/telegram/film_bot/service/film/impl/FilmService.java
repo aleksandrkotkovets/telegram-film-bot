@@ -2,10 +2,14 @@ package com.telegram.film_bot.service.film.impl;
 
 import com.telegram.film_bot.botapi.handler.callbackquery.CallbackQueryType;
 import com.telegram.film_bot.data.entities.Film;
+import com.telegram.film_bot.data.entities.RecommendFilm;
 import com.telegram.film_bot.data.repository.FilmRepository;
+import com.telegram.film_bot.data.repository.RecommendFilmRepository;
 import com.telegram.film_bot.service.film.IFilmService;
+import com.telegram.film_bot.utils.AsyncMethod;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,9 +38,15 @@ public class FilmService implements IFilmService {
     String REGEX_FIND_ALL_GENRE;
 
     private final FilmRepository filmRepository;
+    private final RecommendFilmRepository recommendFilmRepository;
+    private final AsyncMethod asyncMethod;
 
-    public FilmService(FilmRepository filmRepository) {
+    public FilmService(FilmRepository filmRepository,
+                       RecommendFilmRepository recommendFilmRepository,
+                       AsyncMethod asyncMethod) {
         this.filmRepository = filmRepository;
+        this.recommendFilmRepository = recommendFilmRepository;
+        this.asyncMethod = asyncMethod;
     }
 
     @Override
@@ -89,6 +99,21 @@ public class FilmService implements IFilmService {
         return getTopFilms(countTopFilms, filmList);
     }
 
+    @Override
+    @Transactional
+    public synchronized List<RecommendFilm> getUnReadRecommendations() {
+        List<RecommendFilm> allByReadIsFalse = recommendFilmRepository.findAllByReadFalse();
+        allByReadIsFalse.forEach(RecommendFilm::setRead);
+        asyncMethod.saveAll(allByReadIsFalse);
+        return allByReadIsFalse;
+    }
+
+    @Override
+    public synchronized List<RecommendFilm> getAllRecommendations() {
+        return recommendFilmRepository.findAll();
+    }
+
+
     private List<Film> getTopFilms(Integer countTopFilms, List<Film> filmList) {
         List<Film> topFilms = new ArrayList<>();
         if (checkCount(filmList.size(), countTopFilms)) {
@@ -111,6 +136,7 @@ public class FilmService implements IFilmService {
     }
 
     private void addAll(List<Film> to, List<Film> from, int delta) {
+        Collections.shuffle(from);
         if (from.size() <= delta) {
             to.addAll(from);
         } else {

@@ -3,7 +3,7 @@ package com.telegram.film_bot.botapi;
 import com.telegram.film_bot.botapi.handler.BotState;
 import com.telegram.film_bot.botapi.handler.BotStateContext;
 import com.telegram.film_bot.cache.UserDataCache;
-import com.telegram.film_bot.service.menu.MainMenuService;
+import com.telegram.film_bot.service.commands.CommandBotStateOrchestratorService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
@@ -16,18 +16,18 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 public class TelegramFacade {
 
     private final BotStateContext botStateContext;
-    private final MainMenuService mainMenuService;
     private final UserDataCache userDataCache;
     private final CallbackQueryFacade callbackQueryFacade;
+    private final CommandBotStateOrchestratorService commandBotStateOrchestratorService;
 
     public TelegramFacade(BotStateContext botStateContext,
-                          MainMenuService mainMenuService,
                           UserDataCache userDataCache,
-                          CallbackQueryFacade callbackQueryFacade) {
+                          CallbackQueryFacade callbackQueryFacade,
+                          CommandBotStateOrchestratorService commandBotStateOrchestratorService) {
         this.botStateContext = botStateContext;
-        this.mainMenuService = mainMenuService;
         this.userDataCache = userDataCache;
         this.callbackQueryFacade = callbackQueryFacade;
+        this.commandBotStateOrchestratorService = commandBotStateOrchestratorService;
     }
 
     public BotApiMethod<?> handleUpdate(Update update) {
@@ -37,7 +37,7 @@ public class TelegramFacade {
         if (update.hasCallbackQuery()) {
             CallbackQuery callbackQuery = update.getCallbackQuery();
             log.info("New callbackQuery from User: {}, userId: {}, with data: {}",
-                    update.getCallbackQuery().getFrom().getLastName(),
+                    update.getCallbackQuery().getFrom().getUserName(),
                     callbackQuery.getFrom().getId(),
                     update.getCallbackQuery().getData());
             return callbackQueryFacade.processCallbackQuery(update.getCallbackQuery());
@@ -59,34 +59,15 @@ public class TelegramFacade {
         String inputMsg = message.getText();
         int userId = message.getFrom().getId();
 
-        BotState botState;
-        BotApiMethod<?> replyMessage;
-
-        switch (inputMsg) {
-            case "/start":
-                botState = BotState.SHOW_MAIN_MENU;
-                break;
-            case "Поиск":
-                botState = BotState.FIND_FILM;
-                break;
-            case "Рандомный фильм":
-                botState = BotState.SHOW_RANDOM_FILM;
-                break;
-            case "Топ-5 фильмов":
-                botState = BotState.SHOW_TOP_FILMS;
-                break;
-            case "Помощь":
-                botState = BotState.SHOW_HELP_MENU;
-                break;
-            default:
-                botState = userDataCache.getUsersCurrentBotState(userId);
-                break;
-        }
-
+        BotState botState = getBotState(inputMsg, userId);
         userDataCache.setUsersCurrentBotState(userId, botState);
 
-        replyMessage = botStateContext.processInputMessage(botState, message);
-        return replyMessage;
+        return botStateContext.processInputMessage(botState, message);
+    }
+
+    private BotState getBotState(String inputMsg, int userId) {
+        BotState processBotState = commandBotStateOrchestratorService.getBotStateByCommand(inputMsg);
+        return (processBotState == null) ? userDataCache.getUsersCurrentBotState(userId) : processBotState;
     }
 
 }
