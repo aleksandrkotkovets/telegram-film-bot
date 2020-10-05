@@ -76,7 +76,11 @@ public class FilmService implements IFilmService {
         switch (callbackQueryType) {
             case RATE: {
                 List<String> uniqParams = getUniqParams(messageList, REGEX_FIND_ALL_RATE);
-                params = sortStringHowIntList(uniqParams);
+                params = sortStringHowIntList(uniqParams)
+                        .subList(uniqParams.size() - 6, uniqParams.size())
+                        .stream()
+                        .map(rate -> rate + '+')
+                        .collect(Collectors.toList());
                 break;
             }
             case YEAR: {
