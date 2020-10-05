@@ -48,4 +48,4 @@ user:
 
 ping-task:
   url: https://www.google.com
-  period: 1200000
+  period: 300000
