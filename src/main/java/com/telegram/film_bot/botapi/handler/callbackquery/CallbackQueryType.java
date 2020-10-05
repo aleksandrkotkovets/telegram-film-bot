@@ -7,5 +7,5 @@ import lombok.Getter;
 @Getter
 public enum CallbackQueryType {
     YES, NO,
-    GENRE, YEAR, RATE
+    GENRE, YEAR, RATE, COUNTRY
 }

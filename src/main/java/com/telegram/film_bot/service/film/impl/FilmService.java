@@ -37,6 +37,9 @@ public class FilmService implements IFilmService {
     @Value("${regex.message.get.genre}")
     String REGEX_FIND_ALL_GENRE;
 
+    @Value("${regex.message.get.country}")
+    String REGEX_FIND_ALL_COUNTRY;
+
     private final FilmRepository filmRepository;
     private final RecommendFilmRepository recommendFilmRepository;
     private final AsyncMethod asyncMethod;
@@ -90,6 +93,10 @@ public class FilmService implements IFilmService {
             }
             case GENRE: {
                 params = getUniqParamsWithSplit(messageList, REGEX_FIND_ALL_GENRE);
+                break;
+            }
+            case COUNTRY: {
+                params = getUniqParamsWithSplit(messageList, REGEX_FIND_ALL_COUNTRY);
                 break;
             }
         }

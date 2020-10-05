@@ -40,6 +40,7 @@ public class Keyboard {
         InlineKeyboardButton genre = new InlineKeyboardButton().setText("Жанр").setCallbackData(String.valueOf(CallbackQueryType.GENRE));
         InlineKeyboardButton year = new InlineKeyboardButton().setText("Год").setCallbackData(String.valueOf(CallbackQueryType.YEAR));
         InlineKeyboardButton rate = new InlineKeyboardButton().setText("Рейтинг").setCallbackData(String.valueOf(CallbackQueryType.RATE));
+        InlineKeyboardButton country = new InlineKeyboardButton().setText("Страна").setCallbackData(String.valueOf(CallbackQueryType.COUNTRY));
 
         List<InlineKeyboardButton> keyboardButtonsRow1 = new ArrayList<>();
         keyboardButtonsRow1.add(genre);
@@ -47,6 +48,7 @@ public class Keyboard {
 
         List<InlineKeyboardButton> keyboardButtonsRow2 = new ArrayList<>();
         keyboardButtonsRow1.add(rate);
+        keyboardButtonsRow1.add(country);
 
         List<List<InlineKeyboardButton>> rowList = new ArrayList<>();
         rowList.add(keyboardButtonsRow1);

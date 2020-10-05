@@ -46,6 +46,7 @@ public class ParamCallQueryHandler {
         switch (usersCurrentBotState) {
             case RANDOM_FILM_CHOOSE_GENRE:
             case RANDOM_FILM_CHOOSE_RATE:
+            case RANDOM_FILM_CHOOSE_COUNTRY:
             case RANDOM_FILM_CHOOSE_YEAR: {
                 /**to process the request only once*/
 //                userDataCache.setUsersCurrentBotState(userId, BotState.GET_RANDOM_FILM_BY_PARAM);
