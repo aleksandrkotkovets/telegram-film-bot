@@ -60,7 +60,7 @@ public class UnreadRecommendationsHandler extends AbstractFilmHelper implements 
 
         switch (botState) {
             case SHOW_RECOMMENDATIONS_UNREAD:
-                userDataCache.setUsersCurrentBotState(userId, BotState.GET_RECOMMENDATIONS_UNREAD);
+//                userDataCache.setUsersCurrentBotState(userId, BotState.GET_RECOMMENDATIONS_UNREAD);
                 replyToUser = messagesService.getReplyMessage(chatId, "reply.showRecommendations");
                 List<RecommendFilm> unReadRecommendations = filmService.getUnReadRecommendations();
                 List<String> messageList = getMessageList(unReadRecommendations);

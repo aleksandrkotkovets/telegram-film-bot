@@ -15,6 +15,7 @@ public enum BotState {
 
     SHOW_TOP_FILMS,
     GET_TOP_FILMS,
+
     FIND_FILM,
     FIND_FILM_STARTED,
 

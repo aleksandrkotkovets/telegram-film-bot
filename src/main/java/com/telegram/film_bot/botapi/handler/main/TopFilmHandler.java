@@ -64,7 +64,7 @@ public class TopFilmHandler extends AbstractFilmHelper implements InputMessageHa
         BotState botState = userDataCache.getUsersCurrentBotState(userId);
 
         if (botState.equals(BotState.SHOW_TOP_FILMS)) {
-            userDataCache.setUsersCurrentBotState(userId, BotState.GET_TOP_FILMS);
+//            userDataCache.setUsersCurrentBotState(userId, BotState.GET_TOP_FILMS);
             List<Film> films = filmService.findTopFilmByCount(countTopFilms);
             List<Integer> idList = getIdList(films);
             List<ForwardMessage> forwardMessageList = forwardMessageService.getForwardMessageList(chatId, idList);
