@@ -59,7 +59,7 @@ public class RecommendFilmHandler implements InputMessageHandler {
                 replyToUser = messagesService.getReplyMessage(chatId, "reply.recommendFilmAsk");
                 break;
             case ASK_RECOMMEND_FILM:
-                userDataCache.setUsersCurrentBotState(userId, BotState.ADD_RECOMMEND_FILM);
+//                userDataCache.setUsersCurrentBotState(userId, BotState.ADD_RECOMMEND_FILM);
                 recommendFilmService.saveRecommendedFilm(inputMsg);
                 replyToUser = getReplyMessageByParam(inputMsg);
                 break;

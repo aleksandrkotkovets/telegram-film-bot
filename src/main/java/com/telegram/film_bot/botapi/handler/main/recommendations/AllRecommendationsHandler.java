@@ -60,7 +60,7 @@ public class AllRecommendationsHandler extends AbstractFilmHelper implements Inp
 
         switch (botState) {
             case SHOW_RECOMMENDATIONS_ALL:
-                userDataCache.setUsersCurrentBotState(userId, BotState.GET_RECOMMENDATIONS_ALL);
+//                userDataCache.setUsersCurrentBotState(userId, BotState.GET_RECOMMENDATIONS_ALL);
                 replyToUser = messagesService.getReplyMessage(chatId, "reply.showRecommendations");
                 List<RecommendFilm> allRecommendations = filmService.getAllRecommendations();
                 List<String> messageList = getMessageList(allRecommendations);

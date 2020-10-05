@@ -47,7 +47,8 @@ public class ParamCallQueryHandler {
             case RANDOM_FILM_CHOOSE_GENRE:
             case RANDOM_FILM_CHOOSE_RATE:
             case RANDOM_FILM_CHOOSE_YEAR: {
-                userDataCache.setUsersCurrentBotState(userId, BotState.GET_RANDOM_FILM_BY_PARAM);
+                /**to process the request only once*/
+//                userDataCache.setUsersCurrentBotState(userId, BotState.GET_RANDOM_FILM_BY_PARAM);
                 Film film = filmService.getRandomFilmByParam(queryType);
                 replyToUser = findFilmMessageService.getForwardMessage(chatId, film);
                 break;

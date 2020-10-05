@@ -59,7 +59,7 @@ public class NoCallQueryHandler implements CallbackQueryHandler {
 
         switch (usersCurrentBotState) {
             case RANDOM_FILM_ASK: {
-                userDataCache.setUsersCurrentBotState(userId, BotState.GET_RANDOM_FILM);
+//                userDataCache.setUsersCurrentBotState(userId, BotState.GET_RANDOM_FILM);
                 Film film = filmService.getRandomFilm();
                 replyToUser = findFilmMessageService.getForwardMessage(chatId, film);
                 break;

@@ -18,7 +18,7 @@ telegram:
     botUserName: "@alekot_bot"
     botToken: 1370699371:AAFtToynML4gadnM7zfqjmn6DKQGOeSnaXc
     #ngrok
-    webHookPath: https://3a5e60129a0e.ngrok.io
+    webHookPath: https://20e5c8eff1b5.ngrok.io
   channel:
     id: 1001300578419
 #  Heroku
