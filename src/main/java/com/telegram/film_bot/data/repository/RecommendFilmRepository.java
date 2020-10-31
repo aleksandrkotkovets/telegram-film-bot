@@ -9,4 +9,5 @@ public interface RecommendFilmRepository extends MongoRepository<RecommendFilm, 
 
     List<RecommendFilm> findAllByReadFalse();
 
+    RecommendFilm deleteByMessageId(Integer messageId);
 }

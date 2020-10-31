@@ -1,5 +1,7 @@
 package com.telegram.film_bot.utils;
 
+import com.telegram.film_bot.data.entities.RecommendFilm;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -90,6 +92,28 @@ public class StringHelper {
             message.append(count).append(". ").append(stringList.get(i)).append("\n");
         }
         return String.valueOf(message);
+    }
+
+    public static String createMessageWithLink(List<RecommendFilm> recommendFilms, LinkType linkType) {
+        StringBuilder message = new StringBuilder();
+        for (int i = 0; i < recommendFilms.size(); i++) {
+            String count = String.valueOf(i + 1);
+            String messageText = recommendFilms.get(i).getMessageText();
+            Integer messageId = recommendFilms.get(i).getMessageId();
+            String link = '/' + linkType.getType() + messageId;
+            message.append(count).append(". ").append(messageText).append(" ").append(link).append("\n");
+        }
+        return String.valueOf(message);
+    }
+
+    public static Integer getParamFromLink(String link, LinkType linkType) {
+        String regex = buildRegex(linkType);
+
+        return Integer.valueOf(link.replaceAll(regex, ""));
+    }
+
+    private static String buildRegex(LinkType linkType) {
+        return '/' + linkType.getType();
     }
 }
 

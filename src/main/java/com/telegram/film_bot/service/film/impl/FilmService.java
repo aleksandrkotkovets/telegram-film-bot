@@ -183,4 +183,9 @@ public class FilmService implements IFilmService {
         return randomElement.get();
     }
 
+    @Override
+    @Transactional
+    public RecommendFilm deleteRecommendFilmByMessageId(Integer messageId) {
+        return recommendFilmRepository.deleteByMessageId(messageId);
+    }
 }

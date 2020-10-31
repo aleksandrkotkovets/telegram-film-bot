@@ -10,6 +10,8 @@ import com.telegram.film_bot.service.impl.IChatService;
 import com.telegram.film_bot.service.impl.IUserService;
 import com.telegram.film_bot.service.message.ReplyMessagesService;
 import com.telegram.film_bot.utils.Emoji;
+import com.telegram.film_bot.utils.LinkType;
+import com.telegram.film_bot.utils.StringHelper;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -17,7 +19,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 
 import java.util.List;
 
-import static com.telegram.film_bot.utils.StringHelper.createMessage;
+import static com.telegram.film_bot.utils.StringHelper.createMessageWithLink;
 
 @Component
 public class AllRecommendationsHandler extends AbstractFilmHelper implements InputMessageHandler {
@@ -60,18 +62,25 @@ public class AllRecommendationsHandler extends AbstractFilmHelper implements Inp
 
         switch (botState) {
             case SHOW_RECOMMENDATIONS_ALL:
-//                userDataCache.setUsersCurrentBotState(userId, BotState.GET_RECOMMENDATIONS_ALL);
+                userDataCache.setUsersCurrentBotState(userId, BotState.GET_RECOMMENDATIONS_ALL);
                 replyToUser = messagesService.getReplyMessage(chatId, "reply.showRecommendations");
                 List<RecommendFilm> allRecommendations = filmService.getAllRecommendations();
-                List<String> messageList = getMessageList(allRecommendations);
-                String message = createMessage(messageList);
+                String message = createMessageWithLink(allRecommendations, LinkType.DELETE);
                 replyToUser.setText(replyToUser.getText() + "\n\n" + message);
+                break;
+            case GET_RECOMMENDATIONS_ALL:
+//                userDataCache.setUsersCurrentBotState(userId, BotState.DELETE_RECOMMEND_FILM);
+                String text = inputMsg.getText();
+                if (text.contains(LinkType.DELETE.getType())) {
+                    Integer messageId = StringHelper.getParamFromLink(text, LinkType.DELETE);
+                    RecommendFilm recommendFilm = filmService.deleteRecommendFilmByMessageId(messageId);
+                    replyToUser = messagesService.getReplyMessage(chatId, "reply.deleteRecommendations", recommendFilm.getMessageText(), recommendFilm.getMessageId());
+                }
                 break;
         }
 
+
         return replyToUser;
     }
-
-
 
 }

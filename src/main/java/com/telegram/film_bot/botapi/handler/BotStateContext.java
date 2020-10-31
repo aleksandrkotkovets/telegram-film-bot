@@ -23,6 +23,11 @@ public class BotStateContext {
     }
 
     private InputMessageHandler findMessageHandler(BotState currentState) {
+
+        if (isShowRecommendationsState(currentState)) {
+            return messageHandlers.get(BotState.SHOW_RECOMMENDATIONS_ALL);
+        }
+
         if (isFilmSearchState(currentState)) {
             return messageHandlers.get(BotState.FIND_FILM);
         }
@@ -69,4 +74,13 @@ public class BotStateContext {
         }
     }
 
+    private boolean isShowRecommendationsState(BotState currentState) {
+        switch (currentState) {
+            case SHOW_RECOMMENDATIONS_ALL:
+            case GET_RECOMMENDATIONS_ALL:
+                return true;
+            default:
+                return false;
+        }
+    }
 }
